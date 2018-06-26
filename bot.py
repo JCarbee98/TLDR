@@ -8,6 +8,7 @@
 import tweepy
 import time
 from secrets import *
+from database import adduser,printusr
 
 # create an OAuthHandler instance
 # twitter requires all requests to use OAuth for authentication
@@ -43,3 +44,6 @@ for s in twt:
 
 for follower in tweepy.Cursor(api.followers).items():
     follower.follow()
+
+adduser(str(api.me().name))#adds own usrname to database
+printusr(api.me().name)#prints database matches to username
