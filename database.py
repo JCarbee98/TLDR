@@ -7,14 +7,17 @@ import os.path
 else:'''
 db = sqlite3.connect('main.db')
 maindb = db.cursor()
-maindb.execute('''create table accounts (atname text)''')
+maindb.execute('''create table twitacct (atname text,time)''')
+maindb.execute('''create table rposts (title text, rlinx text,category text)''')
 
-
-def adduser(usrname):
-    maindb.execute("insert into accounts values(?) ", (usrname,))
+def addtuser(usrname):
+    maindb.execute("insert into twitacct values(?) ", (usrname,))
+    db.commit()
+def addrpost (title,link,category):
+    maindb.execute("insert into rposts values (?,?,?)",(title,link,category))
     db.commit()
 
-
 def printusr(usrname):
-    maindb.execute("select * from accounts where atname=:uname", {"uname": usrname})
+    maindb.execute("select * from twitacct where atname=:uname", {"uname": usrname})
     print(maindb.fetchone())
+
