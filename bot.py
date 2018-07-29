@@ -33,9 +33,9 @@ while StayLoop == 0:
 	userChoice = 0
 	print("MENU CHOICE 1:  TWEET")
 	print("MENU CHOICE 2:  EXIT")
-	userChoice = input("NUM:")
+	userChoice = int(input("NUM:"))
 	if userChoice == 1:
-		message = raw_input("Type the message: ")
+		message = input("Type the message: ")
 		s = api.update_status(message)
 	if userChoice == 2:
 		StayLoop = 1
