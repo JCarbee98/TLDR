@@ -1,2 +1,8 @@
 
 secrets.py
+*.xml
+*.meta
+*.xml
+*.xml
+*.pyc
+*.iml
