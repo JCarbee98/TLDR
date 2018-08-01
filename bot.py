@@ -26,8 +26,6 @@ subreddits = "me_irl"
 directUsers = "@HGrimm21"
 
 
-
-
 print("hello!\n\n")
 #twt = api.search(q="Hello World!")
 

@@ -30,7 +30,7 @@ def grab_posts(subs, numposts=1): #default value, can be made larger for grabbin
             temp=Post(post.title,post.score,post.url)
             info.append(temp)
     return info                     #return it
-
+3
 def grab_random():	#grabs the top post over a day from a random subreddit and returns it
 	pst=[]
 	for post in red.random_subreddit().top('day', limit=1):

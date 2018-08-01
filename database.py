@@ -20,7 +20,7 @@ def addrpost (title,link,category):
     maindb.execute("insert into rposts values (?,?,?)",(title,link,category))
     db.commit()
 def getrpost(category):
-    maindb.execute("select * from rposts where category=:category LIMIT 1", {"category": category})
+    maindb.execute("select * from rposts where category=:category order by random() LIMIT 1", {"category": category})
     rlist=[]
     rows=maindb.fetchall()
     for row in rows:
@@ -30,3 +30,13 @@ def getrpost(category):
 def printusr(usrname):
     maindb.execute("select * from twitacct where atname=:uname", {"uname": usrname})
     print(maindb.fetchone())
+def returnsubs():
+    maindb.execute("select distinct categories from rposts")
+    rlist = []
+    rows = maindb.fetchall()
+    for row in rows:
+        rlist.extend(row)
+    return rlist
+def clearposts():
+    maindb.execute("delete from rposts")
+    db.commit()
