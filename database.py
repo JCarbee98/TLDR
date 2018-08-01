@@ -34,7 +34,3 @@ def printusr(usrname):
 addtuser("memes",123)
 addrpost("TIL C fucking sucks","https://www.stilldrinking.org/programming-sucks",'programming')
 reddit=getrpost('programming')
-print(reddit)
-print(reddit[0])
-print(reddit[1])
-print(reddit[2])
