@@ -6,7 +6,7 @@ import threading
 from threading import Thread
 from database import *
 from secrets import *
-
+from RedditImport import grab_posts,grab_random
 #create an OAuthHandler instance
 # twitter requires all requests to use OAuth for authentication
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -39,8 +39,10 @@ def TimedMessage(message, times):
 	time.sleep(temp)
 	s = api.update_status(message)
 
-
-
+def UpdateDB(Subreddit,Postcount):
+	posts=grab_posts(Subreddit,Postcount)
+	for x in posts:
+		addrpost(x.title,x.url,Subreddit)
 
 
 test = "@"

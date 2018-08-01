@@ -30,7 +30,3 @@ def getrpost(category):
 def printusr(usrname):
     maindb.execute("select * from twitacct where atname=:uname", {"uname": usrname})
     print(maindb.fetchone())
-
-addtuser("memes",123)
-addrpost("TIL C fucking sucks","https://www.stilldrinking.org/programming-sucks",'programming')
-reddit=getrpost('programming')
