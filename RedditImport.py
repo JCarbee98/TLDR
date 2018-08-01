@@ -1,5 +1,5 @@
 import praw
-from secrets import *
+
 '''
 
 PRAW is a Reddit interface object that allows the scraping of posts from subreddits.
@@ -18,14 +18,11 @@ title, score, and url. You can then parse this returned structure to display the
 '''
 
 # don't change this, it's specific to the bot reddit account I made
-'''
-red = praw.Reddit(user_agent=ruser_agent,
-                  client_id=rclient_id,
-                  client_secret=rclient_id)##
-'''
 red = praw.Reddit(user_agent='windows:example.twitterredditbot:v.1 (by students)',
                   client_id='9aUOvaqOIkNprg',
                   client_secret='1DePUPByrds4R7lAk6xv1NyE1ww')
+
+
 def grab_posts(subs, cats, numposts=1): #default value, can be made larger for public posting
     info = []   #list to hold lists of info
 
@@ -115,7 +112,7 @@ while True:
     if choice == "done":
         break
     else:
-        post_types.append(choice)
+        post_types.append(int(choice))
 
 number = int(input("Please enter the number of posts you want: "))
 
