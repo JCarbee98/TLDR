@@ -3,6 +3,8 @@
 import tweepy
 import time
 import threading
+import random
+import sys
 from threading import Thread
 from database import *
 from secrets import *
@@ -14,11 +16,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret);
 
 api = tweepy.API(auth)
-
-#public_tweets = api.home_timeline()
-
-#for tweet in public_tweets:
-#	print(tweet.text)
+SetStop = 0
 
 
 f = file("Preferences.txt", 'r+')
@@ -44,18 +42,11 @@ for x in range(loopTime):
 	directUsers.append(temp)
 
 
-#<<<<<<< HEAD
-print("hello!\n\n")
-=======
 f.close()
 
 
+
 print("Welcome to our bot!")
-#>>>>>>> 7e4a5e88f35eb0d3e65086cef86e779d8b19e5b9
-#twt = api.search(q="Hello World!")
-
-#api.send_direct_message(user="@murillians_tho", text="hello there")
-
 
 def TimedMessage(message, times):
 	temp = int(times)
@@ -69,18 +60,47 @@ def UpdateDB(Subreddit,Postcount):
 		addrpost(x.title,x.url,Subreddit)
 
 
-#def RunPreferences():
+def RunMainPost():
+	while SetStop == 0:
+		time.sleep(60*int(minutes))
+		randSubNum = random.randint(0, (len(subreddits)-1))
+		print("num is ", randSubNum)
+		print("sub is ", subreddits[randSubNum])
+		post = getrpost(subreddits[randSubNum])
+		message = post[0] + " " + post[1]
+		s = api.update_status(message)
+	print("Ended Post Main!")
+		
+		
 
-def getdms():
-	list = api.direct_messages()
-	for dm in list:
-		print(dm)
+def RunDirectPost():
+	while SetStop == 0:
+		time.sleep(60*int(minutesDirect))
+		randSubNum = random.randint(0, (len(subreddits)-1))
+		randUser = random.randint(0, (len(directUsers)-1))
+		post = getrpost(subreddits[0])
+		print("D num is ", randSubNum)
+		print("D sub is ", subreddits[randSubNum])
+		
+		message = post[0] + " " + post[1]
+		api.send_direct_message(user= directUsers[randUser], text=message)
+	print("Ended Post Direct!")
+	
+for x in range(len(subreddits)):
+	UpdateDB(subreddits[x], 25)
+
+Thread(target = RunMainPost).start()
+Thread(target = RunDirectPost).start()
 
 
+for tweet in tweepy.Cursor(api.search,q='@TLdidntreddit',lang='en').items(1):
+	try:
+		tweet.retweet()
+	except (tweepy.TweepError) as e:
+		print(e.reason)
+	except StopIteration:
+		break
 
-
-test = "@"
-counter = 0
 StayLoop = 0
 while StayLoop == 0:
 	userChoice = 0
@@ -113,7 +133,8 @@ while StayLoop == 0:
 		
 			
 		if randORnot == 2:
-			post = getrpost('programming')
+			UpdateDB("me_irl", 25)
+			post = getrpost('me_irl')
 			print("Title is:")
 			print(post[0])
 			print("Link is:")
@@ -189,7 +210,8 @@ while StayLoop == 0:
 
 	if userChoice == 5:
 		StayLoop = 1
+		SetStop = 1
 
+print("Waiting on threads to update!")
 print("\ntwitter bot updated 8.1.2018")
-
-		
+sys.exit()
