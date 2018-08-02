@@ -44,14 +44,14 @@ for x in range(loopTime):
 	directUsers.append(temp)
 
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 print("hello!\n\n")
 =======
 f.close()
 
 
 print("Welcome to our bot!")
->>>>>>> 7e4a5e88f35eb0d3e65086cef86e779d8b19e5b9
+#>>>>>>> 7e4a5e88f35eb0d3e65086cef86e779d8b19e5b9
 #twt = api.search(q="Hello World!")
 
 #api.send_direct_message(user="@murillians_tho", text="hello there")
@@ -71,7 +71,10 @@ def UpdateDB(Subreddit,Postcount):
 
 #def RunPreferences():
 
-
+def getdms():
+	list = api.direct_messages()
+	for dm in list:
+		print(dm)
 
 
 
