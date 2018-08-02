@@ -2,7 +2,7 @@ import sqlite3
 import os.path
 
 if not os.path.isfile('main.db'):
-    maindb = sqlite3.connect('main.db')
+    maindb = sqlite3.connect('main.db', check_same_thread= False)
     maindb.execute('''create table accounts (atname text)''')
     maindb.execute('''create table twitacct (atname text,time)''')
     maindb.execute('''create table rposts (title text, rlinx text,category text)''')
@@ -11,7 +11,7 @@ if not os.path.isfile('main.db'):
 
 else:
 
-    db = sqlite3.connect('main.db')
+    db = sqlite3.connect('main.db', check_same_thread = False)
     maindb=db.cursor()
 def addtuser(usrname,time):
     maindb.execute("insert into twitacct values(?,?) ", (usrname,time))
