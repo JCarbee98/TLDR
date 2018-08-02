@@ -64,8 +64,6 @@ def RunMainPost():
 	while SetStop == 0:
 		time.sleep(60*int(minutes))
 		randSubNum = random.randint(0, (len(subreddits)-1))
-		print("num is ", randSubNum)
-		print("sub is ", subreddits[randSubNum])
 		post = getrpost(subreddits[randSubNum])
 		message = post[0] + " " + post[1]
 		s = api.update_status(message)
@@ -79,9 +77,7 @@ def RunDirectPost():
 		randSubNum = random.randint(0, (len(subreddits)-1))
 		randUser = random.randint(0, (len(directUsers)-1))
 		post = getrpost(subreddits[0])
-		print("D num is ", randSubNum)
-		print("D sub is ", subreddits[randSubNum])
-		
+	
 		message = post[0] + " " + post[1]
 		api.send_direct_message(user= directUsers[randUser], text=message)
 	print("Ended Post Direct!")
@@ -91,15 +87,6 @@ for x in range(len(subreddits)):
 
 Thread(target = RunMainPost).start()
 Thread(target = RunDirectPost).start()
-
-
-for tweet in tweepy.Cursor(api.search,q='@TLdidntreddit',lang='en').items(1):
-	try:
-		tweet.retweet()
-	except (tweepy.TweepError) as e:
-		print(e.reason)
-	except StopIteration:
-		break
 
 StayLoop = 0
 while StayLoop == 0:
@@ -125,7 +112,7 @@ while StayLoop == 0:
 	if userChoice == 3:
 		timeFromNow = input("Type how many minutes from now you want to post the message: ")
 		timeFromNow = timeFromNow * 60
-		randORnot = input("Do you want to type the message or pull one at random from a subreddit? (1 for message, 2 for random)")
+		randORnot = input("Do you want to type the message or pull one at random from me_irl? (1 for message, 2 for me_irl)")
 		if randORnot == 1:
 			message = raw_input("Type the message: ")
 			tup = (message, timeFromNow)
